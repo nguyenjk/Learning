@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AwesomePlaces.Models.AwesomePlace>
+<div class="container body-content">
+  <div class="col-lg-12 text-center">
+    <h2>Search</h2>
+    <hr class="star-primary">
+  </div>
+  @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+  {
+    <div class="form-group floating-label-form-group">
+      <label for="searchTerm">Search term</label>
+      <input type="text" class="form-control" id="searchTerm" name="searchTerm" placeholder="Search term" value="@ViewBag.SearchTerm">
+    </div>
+    <button type="submit" class="btn btn-success btn-lg">Search</button>
+
+    if (Model != null)
+    {
+      if (!Model.Any())
+      {
+        <h3>No results found</h3>
+      }
+      else
+      {
+        <h3>Found @Model.Count() result(s)</h3>
+      }
+
+      foreach (var awesomePlace in Model)
+      {
+        <div class="awesome-place">
+          <h3 class=" text-center">@awesomePlace.PlaceName &mdash; @awesomePlace.Country.Name</h3>
+          <div class="row">
+            <div class="col-sm-9">
+              <p>@awesomePlace.Description</p>
+            </div>
+            <div class="col-sm-3">
+              By @awesomePlace.UserName,<br />
+              @awesomePlace.CreateDate.ToString("d MMM yyyy 'at' H:mm")
+            </div>
+          </div>
+        </div>
+        <hr class="star-primary star-awesome-place">
+      }
+    }
+  }
+</div>

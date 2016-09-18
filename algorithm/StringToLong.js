@@ -1,0 +1,3 @@
+function stringToLong(longString) {
+    var 
+}
